@@ -1,0 +1,1 @@
+docker inspect 3a0a1wzf819 | grep -P '((Memory)|(PID))'  #Example using a CONTAINER ID
