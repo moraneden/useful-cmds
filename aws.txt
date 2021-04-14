@@ -1,0 +1,33 @@
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[*].Instances[*].Tags[?Key=='Name']" --output text
+
+aws ec2 describe-instances --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value[] | [0], Placement.AvailabilityZone,InstanceType,State.Name]" --output text
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value[] | [0], InstanceType,State.Name]" --output text
+
+
+
+
+
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value[] | [0], InstanceType,State.Name]" --output text
+
+
+# all running instances
+
+foreach ($Region in (Get-AWSRegion)) {
+  "***" +  $Region.Region
+  aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value[] | [0], InstanceType,State.Name]" --output text --region $Region.Region
+}
+
+
+aws ec2 describe-instances --output text \
+--query 'Reservations[*].Instances[*].[InstanceType]' | sort | uniq -c
+
+Install-Module -Name AWS.Tools.Installer -Force
+#Install-AWSToolsModule AWS.Tools.EC2,AWS.Tools.S3 -CleanUp
+Install-Module -name AWSPowerShell.NetCore
+
+foreach ($Region in (Get-AWSRegion)) {
+  $Region.Region
+}
+
+
+aws --region us-east-1 cloudwatch get-metric-statistics --namespace "AWS/Billing" --metric-name "EstimatedCharges"  --dimension "Name=Currency,Value=USD" --start-time $(date +"%Y-%m-%dT%H:%M:00" --date="-12 hours")  --end-time $(date +"%Y-%m-%dT%H:%M:00") --statistic Maximum --period 60 --output text | sort -r -k 3 | head -n 1 | cut -f 2
