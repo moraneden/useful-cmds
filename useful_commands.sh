@@ -1,13 +1,4 @@
-docker exec -it frontend cmd
-docker exec -it 059989aad0b8  sh
-
-docker run --env BACKEND_SERVER=10.100.1.216:9999/LaaSServer-AutoLims3-0 --env BILLING_SERVER=localhost:8085 -p 80:6001 --name frontend netlims/labos-windows:dev
-docker run --env BACKEND_SERVER=10.100.1.216:9999/LaaSServer-AutoLims3-0 --env BILLING_SERVER=localhost:8085 -p 80:6001 --name frontend netlims/labos-windows:dev
-docker run --env BACKEND_SERVER=10.100.1.216:9999/LaaSServer-AutoLims3-0 --env BILLING_SERVER=localhost:8085 -p 80:6001 --name frontend netlims/labos-windows:dev
-
-docker run --name test netlims/linux-frontend-gateway
-
-https://bobcares.com/blog/docker-high-cpu-usage/
+# https://bobcares.com/blog/docker-high-cpu-usage/
 
 docker stats --all --format "table {{.ID}}\t{{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
 
@@ -44,8 +35,6 @@ sudo sysctl -w vm.max_map_count=262144
 
 grep vm.max_map_count /etc/sysctl.conf
 
-
-
 sudo sysctl -w fs.file-max="9999999"
 sudo sysctl -w fs.nr_open="9999999"
 
@@ -63,86 +52,23 @@ sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -
 
 
 
----- for proxy 
+# for proxy 
 git config --global http.proxy http://<my_proxy>:<my_port>
 git config --global https.proxy https://<my_proxy>:<my_port>
 
--- Replace CRLF with LF
+# Replace CRLF with LF
 powershell.exe -noninteractive -NoProfile -ExecutionPolicy Bypass -Command "& {[IO.File]::WriteAllText('run.sh', ([IO.File]::ReadAllText('run.sh') -replace \"`r`n\", \"`n\"))};"
 
-NECLI connect -s customers.softov.co.il -d Atlantic -u moran -p dinodinodino22
-
-curl -X GET "localhost:5601/api/saved_objects/index-pattern/logstash*" -H 'kbn-xsrf: true'
-
 sudo git reset --hard origin/master
-
 sudo git pull --all
-docker-compose up
 
-Softov14
+docker-compose up
 
 sudo apt-get install cifs-utils -y
 sudo apt install nfs-common -y 
 sudo apt install cifs-utils -y 
 
 #sudo mount -t cifs //srvcompile4/versions /mnt -o username=jenkins,password=1q2w3e4r5t6y7u8i9o0p
-
-
-
- sudo mount 10.0.1.68:/AutoLims/upload /mnt/upload -o username=./devuser
- 
-sudo PASSWD=j,ukhrue1212 mount -t cifs //10.0.1.68/AutoLims/upload /mnt/upload -o username=devuser,uid=1000,gid=1000
-
-sudo PASSWD=j,ukhrue1212 mount -t cifs //10.0.1.68/AutoLims/upload /Web/uploadFiles -o username=devuser
-
-sudo PASSWD=j,ukhrue1212 mount -t cifs //10.100.2.253/Autolims$/MainRls/common/uploadfiles /Web/uploadFiles -o username=devuser,uid=www-data,gid=root,file_mode=0777,dir_mode=0777
-
-sudo PASSWD=j,ukhrue1212 mount -t cifs //10.0.1.68/AutoLims$/upload /Web/uploadFiles -o username=devuser
-
-sudo PASSWD=Dinodinodino55 mount -t cifs //moran-x1/elk /mnt/elk -o username=moran,file_mode=0777,dir_mode=0777
-
-sudo PASSWD=j,ukhrue1212 mount -t cifs //10.100.2.121/uploadfiles /Web/uploadFiles -o username=devuser,uid=www-data,gid=root,file_mode=0777,dir_mode=0777
-
-sudo chown ubuntu /Web/uploadFiles
-sudo chown ubuntu /mnt/elk
-
-sudo chown www-data /Web/uploadFiles
-
-sudo chown -R www-data:www-data /Web/uploadFiles
-
-sudo chmod +s /sbin/mount.cifs
-sudo chmod +s /sbin/umount.cifs
-
-\\10.0.1.68\AutoLims\upload
-
-curl -X GET "localhost:5601/api/saved_objects/_find?type=index-pattern&search_fields=title&search=logstash*" -H 'kbn-xsrf: true'
-
-code=$(curl -X GET "localhost:5601/api/saved_objects/_find?type=index-pattern&search_fields=title&search=logst1111ash*" -H 'kbn-xsrf: true')
-if [[ $code =~ '"total":0' ]] ; then
-  echo match
-fi
-
-[[ $code =~ ("total":0") ]] && echo match
-if [ grep -q "total":0"]; 
-then
-    echo $code 
-fi
-
-code=$(curl -X GET "localhost:5601/api/saved_objects/_find?type=index-pattern&search_fields=title&search=logstash*" -H 'kbn-xsrf: true')
-echo $code 
-
-$ response=$(curl -X POST -d@myfile.txt server-URL);
-$ if [ "Upload successful" == "${response}" ]; then … fi;
-
-grep -q "total":0"
-
-OUTPUT='something bogus'
-[[ $code =~ ('"total":0"') ]] && echo match
-
-if [[ $code =~ ("total":0") ]]; then
-  echo match
-fi
-
 
 #ubuntu Fe ports open
 
@@ -227,13 +153,6 @@ Set-ItemProperty 'HKLM:\System\CurrentControlSet\Control\FileSystem' -Name 'Long
 
 pkgmgr /iu:"TelnetClient"
 dism /online /Enable-Feature /FeatureName:TelnetClient
-
-curl -XPUT http://localhost:4646/v1/system/gc
-
-sudo mkdir --parents /Web/PrintServer
-sudo mkdir --parents /Web/uploadFiles
-			"/Web/PrintServer:/var/www/html/LaaS/PrintServer",
-			"/Web/uploadFiles:/var/www/html/LaaS/uploadfiles"
 
 curl http://10.0.50.223:9999/LaaSServer/status?[1-5000]
 curl -s -o /dev/null -w "%{http_code} - %{time_total}\n" https://labos.wolfson.health.gov.il//api/lab/status?[1-500]
