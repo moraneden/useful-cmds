@@ -14,6 +14,8 @@ sudo apt-get autoremove && sudo apt-get autoclean
 sudo ls -lh $(docker inspect -f '{{.LogPath}}' $(docker ps -a -q))
 sudo truncate -s 0 $(docker inspect -f '{{.LogPath}}' $(docker ps -a -q))
 
+sudo sh -c 'truncate -s 0 /var/lib/docker/containers/*/*-json.log'
+
 
 	#THIS SECTION FORWARDS THE HTTP TO HTTPS
 
